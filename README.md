@@ -1,54 +1,45 @@
-  
-  
+# 💻 Portfólio Pessoal - Welton Santos Franco
 
-💻 Portfólio
-============
+Este é um portfólio profissional de desenvolvimento de software desenvolvido com **React**, **Vite** e **Tailwind CSS**. A interface foi totalmente remodelada para adotar uma estética escura com acentos vibrantes e neon (inspirada no visual do *Shadcn UI*), trazendo alta performance, responsividade e interações fluidas com **Framer Motion**.
 
-Projeto desenvolvido para os alunos da Kenzie Academy Brasil, com a finalidade de fornecer um portfólio profissional demonstrando de forma objetiva suas capacidades de técnicas e resolução de problemas, por meio de uma interface simples, moderna e intuitiva.
+---
 
-  
-  
+## 🎨 Principais Recursos
 
-* * *
+- **Estilo Shadcn UI + Neon**: Design moderno com cantos arredondados, bordas finas de `1px` com efeito fosco e brilho neon responsivo nas cores das tecnologias.
+- **Metal Zone (Tocador Interativo)**: Um mockup interativo de tocador de música onde o usuário pode alternar entre bandas de heavy metal favoritas (**Gojira**, **Meshuggah**, **Children of Bodom** e **Death**). O player muda de cor e dados dinamicamente, acompanhado de barras animadas de equalizador.
+- **Anime Sanctuary**: Cards temáticos com efeitos de hover personalizados de animes (**Naruto**, **Bleach**, **Hunter x Hunter** e **One Piece**).
+- **Projetos via API do GitHub**: Integração em tempo real com a API do GitHub para buscar os repositórios públicos de forma dinâmica, exibindo badges coloridas para as linguagens e contagem de estrelas.
+- **Canais de Contato Rápidos**: Cards interativos e responsivos com redirecionamento direto para WhatsApp, E-mail e LinkedIn.
 
-  
-  
+---
 
-🎲 Utilizando projeto
----------------------
+## 🚀 Como Executar o Projeto
 
-### ▪️ Baixando projeto e instalando dependências
+### 1. Clonar e Instalar Dependências
+Primeiro, clone o repositório e instale as dependências usando o Yarn:
+```bash
+yarn install
+```
 
-Para utilizar o projeto basta fazer o fork do repositório em computador e ao baixar realizar o download das dependências do site com o comando: `yarn`
+### 2. Executar em Ambiente de Desenvolvimento
+Para rodar o servidor local de desenvolvimento do Vite:
+```bash
+yarn dev
+```
+O projeto estará disponível por padrão em `http://localhost:5173`.
 
-### ▪️ Iniciando visualização do projeto
+### 3. Build de Produção
+Para compilar e otimizar o projeto para produção:
+```bash
+yarn build
+```
 
-Ao finalizar o download das dependências, inicie a visualização do projeto em ambiente de desenvolvimento com o comando: `yarn dev`
+---
 
-  
-  
+## ⚙️ Customização
 
-* * *
+Você pode personalizar facilmente os dados exibidos editando os arquivos na pasta `src/utils`:
 
-🗂 Estrutura de pastas
-----------------------
-
-Todas as pastas são comuns de um projeto React, porém queremos chamar atenção para alguns arquivos que são fundamentais para a customização das informações no site
-
-Segue as informações sobre cada um:
-
-*   #### 🗂 Pasta utils
-    
-    _Nessa pasta você encontrará dois arquivos que ficarão responsáveis pelas informações exibidas no portfólio_
-    
-    *   **📄 userData.ts**
-        
-        _Nesse arquivo você pode fazer a troca das informações do objeto **UserData** para que reflita nas informações do portfólio_
-        
-        *   **nameUser:** _Nome que aparecerá como logotipo da página, bem como em outras seções onde existe alguma apresentação pessoal_
-            
-        *   **githubUser:** _Essa informação é bastante importante para que os repositórios sejam exibidos, bem como o link do seu github e a imagem de perfil que ficará disponível na página_
-            
-        *   **linkedinUser:** _Inserindo o usuário do seu linkedin será gerado um link para que os usuários acessem seu LinkedIn_
-            
-        *   **whatsappNumber:** _Nessa propriedade você precisará inserir seu DDD junto com o seu número do whatsapp, assim quem clicar no link "whatsapp" irá ser enviado para o seu contato já com uma mensagem pré-definida_
+1. **`userData.ts`**: Altere suas informações pessoais (Nome, usuário do GitHub, LinkedIn, número de WhatsApp, Instagram, etc.).
+2. **`stackData.ts`**: Adicione ou remova as tecnologias que aparecem no grid principal de habilidades e controle os ícones associados.
