@@ -4,8 +4,27 @@ import { stackData } from "@/utils/stackData";
 import { Stack } from "@/components/Stack";
 import { Project } from "@/components/Project";
 import { Contacts } from "@/components/Contacts";
-import { FaGithub, FaLinkedin, FaMusic, FaPlay, FaPause, FaChevronRight, FaChevronLeft, FaCompactDisc } from "react-icons/fa";
+import { 
+  FaGithub, 
+  FaLinkedin, 
+  FaMusic, 
+  FaPlay, 
+  FaPause, 
+  FaChevronRight, 
+  FaChevronLeft, 
+  FaCompactDisc,
+  FaReact,
+  FaDocker,
+  FaNode
+} from "react-icons/fa";
+import { SiTypescript, SiTailwindcss, SiPostgresql, SiStripe } from "react-icons/si";
+import { TbBrandNextjs } from "react-icons/tb";
 import { Sparkles, Code, ExternalLink, Flame, Shield, Compass, Swords } from "lucide-react";
+import maestrumLogo from "@/public/static/img/logo/maestrum.png";
+import maestrumSlide1 from "@/public/static/img/maestrum/slide1.png";
+import maestrumSlide2 from "@/public/static/img/maestrum/slide2.png";
+import maestrumSlide3 from "@/public/static/img/maestrum/slide3.png";
+import maestrumSlide4 from "@/public/static/img/maestrum/slide4.png";
 
 // Metal band dataset for the interactive player
 const metalBands = [
@@ -110,6 +129,39 @@ const animeList = [
   }
 ];
 
+// Maestrum App screenshot carousel placeholders. 
+// Replace these URLs with your actual screenshots (e.g. "/src/public/static/img/maestrum/dashboard.png")
+const maestrumScreenshots = [
+  {
+    url: maestrumSlide1,
+    caption: "Interactive exercise list to track physical and technical string routines (picking, arpeggios, legato)."
+  },
+  {
+    url: maestrumSlide2,
+    caption: "Practice routines showing specific times and exercises to optimize daily warm-ups."
+  },
+  {
+    url: maestrumSlide3,
+    caption: "Interactive scales and Greek modes visualizer for self-taught fretboard study."
+  },
+  {
+    url: maestrumSlide4,
+    caption: "Harmonic field and chord shapes dictionary to master chords in any key."
+  }
+];
+
+// Tech stack specific to Maestrum
+const maestrumStack = [
+  { name: "React", icon: FaReact, color: "text-cyan-400 border-cyan-400/20 bg-cyan-400/5 hover:bg-cyan-400/10 hover:border-cyan-400/30" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-400 border-blue-400/20 bg-blue-400/5 hover:bg-blue-400/10 hover:border-blue-400/30" },
+  { name: "TailwindCSS", icon: SiTailwindcss, color: "text-sky-400 border-sky-400/20 bg-sky-400/5 hover:bg-sky-400/10 hover:border-sky-400/30" },
+  { name: "Node.js", icon: FaNode, color: "text-green-500 border-green-500/20 bg-green-500/5 hover:bg-green-500/10 hover:border-green-500/30" },
+  { name: "Next.js", icon: TbBrandNextjs, color: "text-white border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/30" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "text-sky-500 border-sky-500/20 bg-sky-500/5 hover:bg-sky-500/10 hover:border-sky-500/30" },
+  { name: "Docker", icon: FaDocker, color: "text-blue-500 border-blue-500/20 bg-blue-500/5 hover:bg-blue-500/10 hover:border-blue-500/30" },
+  { name: "Stripe", icon: SiStripe, color: "text-indigo-400 border-indigo-400/20 bg-indigo-400/5 hover:bg-indigo-400/10 hover:border-indigo-400/30" }
+];
+
 export const Home = (): JSX.Element => {
   const githubUrl = `https://github.com/${userData.githubUser}`;
   const portfolioUrl = `https://github.com/${userData.githubUser}/portifoliov2`;
@@ -126,6 +178,17 @@ export const Home = (): JSX.Element => {
 
   const prevBand = () => {
     setBandIndex((prev) => (prev - 1 + metalBands.length) % metalBands.length);
+  };
+
+  // Maestrum Carousel State
+  const [maestrumIndex, setMaestrumIndex] = useState(0);
+
+  const nextMaestrumSlide = () => {
+    setMaestrumIndex((prev) => (prev + 1) % maestrumScreenshots.length);
+  };
+
+  const prevMaestrumSlide = () => {
+    setMaestrumIndex((prev) => (prev - 1 + maestrumScreenshots.length) % maestrumScreenshots.length);
   };
 
   return (
@@ -357,6 +420,131 @@ export const Home = (): JSX.Element => {
               <Stack key={index} title={stack.title} icon={stack.img} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Maestrum SaaS Section */}
+      <section id="maestrum" className="py-20 border-t border-white/5 bg-gradient-to-b from-neutral-950/20 to-neutral-950/60 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Header: Icon & Big Name Featured */}
+          <div className="flex flex-col items-center text-center mb-12">
+            <div className="relative group mb-6">
+              <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-r from-neon-blue via-[#0055ff] to-neon-purple opacity-75 blur-md group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse-glow" />
+              <img
+                src={maestrumLogo}
+                alt="Maestrum Logo"
+                className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border border-white/10 bg-neutral-950 p-1 object-contain transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+              <span className="bg-gradient-to-r from-white via-neutral-100 to-neon-blue bg-clip-text text-transparent">
+                Maestrum
+              </span>
+            </h2>
+            <p className="mt-2 text-sm uppercase tracking-widest text-neon-blue font-semibold mb-6">
+              Personal SaaS Project
+            </p>
+
+            {/* Maestrum Project Stack Icons */}
+            <div className="flex flex-wrap justify-center gap-2 max-w-lg">
+              {maestrumStack.map((tech, index) => {
+                const TechIcon = tech.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all duration-300 hover:scale-105 cursor-default ${tech.color}`}
+                  >
+                    <TechIcon className="w-3.5 h-3.5" />
+                    <span>{tech.name}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Screenshot Carousel */}
+          <div className="relative group overflow-hidden rounded-2xl border border-white/5 bg-neutral-950/80 shadow-[0_0_30px_rgba(0,229,255,0.05)] mb-12">
+            {/* Image Slider */}
+            <div className="relative aspect-video w-full h-[250px] sm:h-[400px] overflow-hidden">
+              {maestrumScreenshots.map((slide, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    index === maestrumIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                  }`}
+                >
+                  <img
+                    src={slide.url}
+                    alt={`Screenshot ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Gradient Overlay & Caption */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 pt-16 text-left">
+                    <p className="text-xs sm:text-sm text-neutral-300 font-medium">
+                      {slide.caption}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevMaestrumSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Previous screenshot"
+            >
+              <FaChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={nextMaestrumSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Next screenshot"
+            >
+              <FaChevronRight className="w-4 h-4" />
+            </button>
+
+            {/* Dot Indicators */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {maestrumScreenshots.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setMaestrumIndex(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === maestrumIndex
+                      ? "w-6 bg-neon-blue shadow-[0_0_8px_rgba(0,229,255,0.8)]"
+                      : "w-2 bg-white/40 hover:bg-white/60"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Description & Call To Action */}
+          <div className="space-y-6 text-center max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-neutral-300 leading-relaxed">
+              Maestrum is a SaaS (Software as a Service) platform developed specifically to support and structure the daily practice of guitarists and string musicians.
+            </p>
+            <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
+              The project was born with the purpose of fulfilling a basic need: an interactive to-do list focused on daily practice routines (like picking control, legato, arpeggios, etc.). However, Maestrum evolved to become a complete musical learning ecosystem. Today, besides managing physical and technical practice, the platform serves as an interactive theoretical guide, assisting in self-taught study through scales, harmonic field, and chords visualizers.
+            </p>
+
+            <div className="pt-6">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://maestrum.app.br"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple text-white shadow-[0_0_20px_rgba(0,229,255,0.2)] hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300"
+              >
+                <span>Visit Maestrum</span>
+                <ExternalLink className="w-4.5 h-4.5" />
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
 

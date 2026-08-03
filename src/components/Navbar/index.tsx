@@ -58,6 +58,7 @@ interface NavLinksProps {
 const NavLinks = ({ mobile, onClick }: NavLinksProps): JSX.Element => {
   const links = [
     { name: "Home", href: "#home" },
+    { name: "Maestrum", href: "#maestrum" },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
     { name: "Social Media", href: "#social-media" },
