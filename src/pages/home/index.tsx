@@ -19,12 +19,12 @@ import {
 } from "react-icons/fa";
 import { SiTypescript, SiTailwindcss, SiPostgresql, SiStripe } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
-import { Sparkles, Code, ExternalLink, Flame, Shield, Compass, Swords } from "lucide-react";
+import { Sparkles, Code, ExternalLink, Flame, Shield, Compass, Swords, Monitor, Smartphone } from "lucide-react";
 import maestrumLogo from "@/public/static/img/logo/maestrum.png";
-import maestrumSlide1 from "@/public/static/img/maestrum/slide1.png";
-import maestrumSlide2 from "@/public/static/img/maestrum/slide2.png";
-import maestrumSlide3 from "@/public/static/img/maestrum/slide3.png";
-import maestrumSlide4 from "@/public/static/img/maestrum/slide4.png";
+import { 
+  maestrumDesktopScreenshots, 
+  maestrumMobileScreenshots 
+} from "@/utils/maestrumData";
 
 // Metal band dataset for the interactive player
 const metalBands = [
@@ -129,27 +129,6 @@ const animeList = [
   }
 ];
 
-// Maestrum App screenshot carousel placeholders. 
-// Replace these URLs with your actual screenshots (e.g. "/src/public/static/img/maestrum/dashboard.png")
-const maestrumScreenshots = [
-  {
-    url: maestrumSlide1,
-    caption: "Interactive exercise list to track physical and technical string routines (picking, arpeggios, legato)."
-  },
-  {
-    url: maestrumSlide2,
-    caption: "Practice routines showing specific times and exercises to optimize daily warm-ups."
-  },
-  {
-    url: maestrumSlide3,
-    caption: "Interactive scales and Greek modes visualizer for self-taught fretboard study."
-  },
-  {
-    url: maestrumSlide4,
-    caption: "Harmonic field and chord shapes dictionary to master chords in any key."
-  }
-];
-
 // Tech stack specific to Maestrum
 const maestrumStack = [
   { name: "React", icon: FaReact, color: "text-cyan-400 border-cyan-400/20 bg-cyan-400/5 hover:bg-cyan-400/10 hover:border-cyan-400/30" },
@@ -181,14 +160,24 @@ export const Home = (): JSX.Element => {
   };
 
   // Maestrum Carousel State
-  const [maestrumIndex, setMaestrumIndex] = useState(0);
+  const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
+  const [desktopIndex, setDesktopIndex] = useState(0);
+  const [mobileIndex, setMobileIndex] = useState(0);
 
-  const nextMaestrumSlide = () => {
-    setMaestrumIndex((prev) => (prev + 1) % maestrumScreenshots.length);
+  const nextDesktopSlide = () => {
+    setDesktopIndex((prev) => (prev + 1) % maestrumDesktopScreenshots.length);
   };
 
-  const prevMaestrumSlide = () => {
-    setMaestrumIndex((prev) => (prev - 1 + maestrumScreenshots.length) % maestrumScreenshots.length);
+  const prevDesktopSlide = () => {
+    setDesktopIndex((prev) => (prev - 1 + maestrumDesktopScreenshots.length) % maestrumDesktopScreenshots.length);
+  };
+
+  const nextMobileSlide = () => {
+    setMobileIndex((prev) => (prev + 1) % maestrumMobileScreenshots.length);
+  };
+
+  const prevMobileSlide = () => {
+    setMobileIndex((prev) => (prev - 1 + maestrumMobileScreenshots.length) % maestrumMobileScreenshots.length);
   };
 
   return (
@@ -464,64 +453,181 @@ export const Home = (): JSX.Element => {
             </div>
           </div>
 
-          {/* Screenshot Carousel */}
-          <div className="relative group overflow-hidden rounded-2xl border border-white/5 bg-neutral-950/80 shadow-[0_0_30px_rgba(0,229,255,0.05)] mb-12">
-            {/* Image Slider */}
-            <div className="relative aspect-video w-full h-[250px] sm:h-[400px] overflow-hidden">
-              {maestrumScreenshots.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    index === maestrumIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-                  }`}
-                >
-                  <img
-                    src={slide.url}
-                    alt={`Screenshot ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Gradient Overlay & Caption */}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 pt-16 text-left">
-                    <p className="text-xs sm:text-sm text-neutral-300 font-medium">
-                      {slide.caption}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevMaestrumSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
-              aria-label="Previous screenshot"
-            >
-              <FaChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={nextMaestrumSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
-              aria-label="Next screenshot"
-            >
-              <FaChevronRight className="w-4 h-4" />
-            </button>
-
-            {/* Dot Indicators */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-              {maestrumScreenshots.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setMaestrumIndex(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === maestrumIndex
-                      ? "w-6 bg-neon-blue shadow-[0_0_8px_rgba(0,229,255,0.8)]"
-                      : "w-2 bg-white/40 hover:bg-white/60"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
+          {/* View Mode Toggle: Desktop / Mobile */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="inline-flex p-1 rounded-xl bg-neutral-900/90 border border-white/10 shadow-lg backdrop-blur-md">
+              <button
+                type="button"
+                onClick={() => setViewMode("desktop")}
+                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                  viewMode === "desktop"
+                    ? "bg-neon-blue/20 text-neon-blue border border-neon-blue/40 shadow-[0_0_15px_rgba(0,229,255,0.25)]"
+                    : "text-neutral-400 hover:text-white hover:bg-white/5 border border-transparent"
+                }`}
+              >
+                <Monitor className="w-4 h-4" />
+                <span>Desktop</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("mobile")}
+                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                  viewMode === "mobile"
+                    ? "bg-neon-blue/20 text-neon-blue border border-neon-blue/40 shadow-[0_0_15px_rgba(0,229,255,0.25)]"
+                    : "text-neutral-400 hover:text-white hover:bg-white/5 border border-transparent"
+                }`}
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>Mobile</span>
+              </button>
             </div>
           </div>
+
+          {/* Desktop Screenshot Carousel */}
+          {viewMode === "desktop" ? (
+            <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-neutral-950/90 shadow-[0_0_30px_rgba(0,229,255,0.06)] mb-12">
+              {/* Desktop Image Slider */}
+              <div className="relative aspect-video w-full h-[250px] sm:h-[400px] md:h-[450px] overflow-hidden">
+                {maestrumDesktopScreenshots.map((slide, index) => (
+                  <div
+                    key={slide.id}
+                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                      index === desktopIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                    }`}
+                  >
+                    <img
+                      src={slide.url}
+                      alt={slide.name}
+                      className="w-full h-full object-contain bg-neutral-950"
+                    />
+                    {/* Gradient Overlay & Caption */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-5 sm:p-6 pt-14 text-left">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-neon-blue bg-neon-blue/10 px-2 py-0.5 rounded border border-neon-blue/30">
+                          {slide.name}
+                        </span>
+                        <span className="text-[11px] text-neutral-400">
+                          {index + 1} / {maestrumDesktopScreenshots.length}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-neutral-200 font-medium">
+                        {slide.caption}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevDesktopSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
+                aria-label="Previous desktop screenshot"
+              >
+                <FaChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={nextDesktopSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full glass border border-white/10 text-white/70 hover:text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all opacity-0 group-hover:opacity-100"
+                aria-label="Next desktop screenshot"
+              >
+                <FaChevronRight className="w-4 h-4" />
+              </button>
+
+              {/* Dot Indicators */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {maestrumDesktopScreenshots.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setDesktopIndex(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === desktopIndex
+                        ? "w-6 bg-neon-blue shadow-[0_0_8px_rgba(0,229,255,0.8)]"
+                        : "w-2 bg-white/40 hover:bg-white/60"
+                    }`}
+                    aria-label={`Go to desktop slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            /* Mobile Screenshot Carousel */
+            <div className="relative mb-12 flex flex-col items-center">
+              <div className="relative flex items-center justify-center gap-3 sm:gap-6 w-full max-w-md">
+                {/* Previous Button */}
+                <button
+                  onClick={prevMobileSlide}
+                  className="p-3 rounded-full glass border border-white/10 text-white/80 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95 transition-all shadow-lg flex-shrink-0"
+                  aria-label="Previous mobile screenshot"
+                >
+                  <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+
+                {/* Smartphone Mockup Frame */}
+                <div className="relative w-[250px] sm:w-[290px] aspect-[450/1024] rounded-[2.5rem] border-[6px] border-neutral-800 bg-neutral-950 shadow-[0_0_40px_rgba(0,229,255,0.12)] overflow-hidden flex-shrink-0">
+                  {/* Dynamic Island / Speaker Pill */}
+                  <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-20 h-3.5 bg-neutral-900 rounded-full z-20 border border-white/10 flex items-center justify-center">
+                    <div className="w-2.5 h-2.5 rounded-full bg-neutral-950 mr-2 border border-white/5" />
+                    <div className="w-7 h-1 bg-neutral-800 rounded-full" />
+                  </div>
+
+                  {maestrumMobileScreenshots.map((slide, index) => (
+                    <div
+                      key={slide.id}
+                      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                        index === mobileIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                      }`}
+                    >
+                      <img
+                        src={slide.url}
+                        alt={slide.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Gradient Overlay & Caption */}
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/75 to-transparent p-4 pt-12 text-left">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <span className="text-[10px] uppercase tracking-wider font-bold text-neon-blue bg-neon-blue/10 px-1.5 py-0.5 rounded border border-neon-blue/30">
+                            {slide.name}
+                          </span>
+                          <span className="text-[10px] text-neutral-400">
+                            {index + 1} / {maestrumMobileScreenshots.length}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-neutral-200 font-medium leading-tight">
+                          {slide.caption}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  onClick={nextMobileSlide}
+                  className="p-3 rounded-full glass border border-white/10 text-white/80 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95 transition-all shadow-lg flex-shrink-0"
+                  aria-label="Next mobile screenshot"
+                >
+                  <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+              </div>
+
+              {/* Mobile Dot Indicators */}
+              <div className="flex gap-2 mt-6">
+                {maestrumMobileScreenshots.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setMobileIndex(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === mobileIndex
+                        ? "w-6 bg-neon-blue shadow-[0_0_8px_rgba(0,229,255,0.8)]"
+                        : "w-2 bg-white/40 hover:bg-white/60"
+                    }`}
+                    aria-label={`Go to mobile slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Description & Call To Action */}
           <div className="space-y-6 text-center max-w-2xl mx-auto">
